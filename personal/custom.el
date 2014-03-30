@@ -8,6 +8,8 @@
 (set-fontset-font "fontset-default" '(#x0400 . #x0500) "Consolas-9")
 
 ;;load cperl, then work around indent issue
+(ido-mode 1)
+(ido-ubiquitous-mode 1)
 (load-library "cperl-mode")
 (load-library "projectile")
 (defalias 'perl-mode 'cperl-mode)
