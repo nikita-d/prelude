@@ -33,8 +33,6 @@
 (require 'perlbrew)
 (require 'flycheck)
 
-
-
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -68,28 +66,11 @@
                     (env-perlbrew-path (elt  (cleanup-env-path "LOCAL_ROOT" ":") 0))
                     (env-perl5lib-list (cleanup-env-path "PERL5LIB" "\s*:\s*")))
                 (progn
-                  ;; (setenv "PERL5LIB" (mapconcat (lambda(x)(format "%s" x)) (list perl-lib-dir-list env-perl5lib-list) ":"))
-                  ;; (setenv "PATH"     (mapconcat (lambda(x)(format "%s" x)) perl-bin-dir-list ":"))
-                  (custom-set-variables
-                   '(default-directory project-dir)
-                   '(cperl-extra-perl-args (concat "-v " (perl-local-lib-paths perl-lib-dir-list) " "))
-                   '(cperl-highlight-variables-indiscriminately nil)
-                   '(cperl-indent-parens-as-block t)
-                   '(cperl-indent-level 2)
-                   '(cperl-close-paren-offset -2)
-                   '(cperl-brace-offset 0)
-                   '(cperl-continued-brace-offset 0)
-                   '(cperl-label-offset -2)
-                   '(cperl-continued-statement-offset 2)
-                   '(cperl-extra-newline-before-brace nil)
-                   '(cperl-extra-newline-before-brace-multiline nil)
-                   '(cperl-merge-trailing-else t)
-                   )
                   (setq standard-indent 2)
                   (setq default-directory (elt (projectile-get-project-directories) 0))
                   (setq perlbrew-dir env-perlbrew-path)
-                  (perlbrew-switch (exec-path-from-shell-copy-env "PERLBREW_PERL"))
                   (cperl-set-style "CPerl")
+                  (perlbrew-switch (exec-path-from-shell-copy-env "PERLBREW_PERL"))
                   (flycheck-select-checker 'perl-carton)
                   (flycheck-mode t))))))
 
