@@ -45,7 +45,7 @@
 
 (flycheck-define-checker perl-carton
   "A Perl syntax checker using the Perl interpreter. See URL `http://www.perl.org'."
-  :command ("carton" "exec" "perl" (eval (mapcar (lambda(x)(format "-I./%s" x)) '("inc" "lib"))) "-w" "-c" source)
+  :command ("carton" "exec" "perl" (eval (mapcar (lambda(x)(format "-I%s" x)) '("./inc" "./lib" "./local/lib/perl" "../inc" "../lib" "../local/lib/perl5"))) "-w" "-c" source)
   :error-patterns
   ((error line-start (minimal-match (message))
           " at " (file-name) " line " line
@@ -69,6 +69,7 @@
                   (setq standard-indent 2)
                   (setq default-directory (elt (projectile-get-project-directories) 0))
                   (setq perlbrew-dir env-perlbrew-path)
+                  (setq cperl-indent-parens-as-block t)
                   (cperl-set-style "CPerl")
                   (perlbrew-switch (exec-path-from-shell-copy-env "PERLBREW_PERL"))
                   (flycheck-select-checker 'perl-carton)
